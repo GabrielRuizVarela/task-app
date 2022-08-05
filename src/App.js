@@ -1,25 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import Overview from './component/Overview';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { items: [] };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const text = event.target.elements.text.value;
+    if (text) {
+      this.setState(prevState => ({
+        items: [...prevState.items, { id: Date.now(), text }]
+      }));
+    }
+    event.target.text.value = '';
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" name="text" placeholder="Enter a new item" />
+          <button type="submit">Add</button>
+        </form>
+        <Overview items={this.state.items} />
+      </div>
+    );
+  }
 }
+
+
 
 export default App;
