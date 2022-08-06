@@ -5,7 +5,7 @@ class Overview extends React.Component {
     return (
       <ul>
         {this.props.items.map((item) => {
-          return <li key={item.id}>{item.text}</li>;
+          return <li key={item.id}>{item.number} {item.text} <button onClick={() => this.props.deleteItem(item.id)}>Delete</button></li>;
         })}
       </ul>
     );
